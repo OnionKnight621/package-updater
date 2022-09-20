@@ -9,7 +9,5 @@ pipelines:
   default:
     - step:
         name: Update modules and install
-        caches:
-          - node
         script:
           - node ./script.js --updateAll
