@@ -1,0 +1,6 @@
+image: node:16.14.0
+pipelines:
+  default:
+    - step:
+        script:
+          - node script.js --update=lodash,mongoose
