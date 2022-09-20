@@ -4,18 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "update": "node ./script.js",
-    "update:all": "node ./script.js --updateAll",
-    "git:commit": "git commit -m \"add dist\"",
-    "deploy": "npm run update:all && npm run git:commit"
+    "update:all": "node ./script.js --updateAll"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.21",
-    "mongoose": "^6.6.1",
-    "rect": "^1.2.1"
+    "lodash": "^4.17.20",
+    "mongoose": "^6.6.0",
+    "rect": "^1.2.0"
   },
   "devDependencies": {
     "axios": "^0.27.2",

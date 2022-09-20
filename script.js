@@ -6,7 +6,7 @@ const { dependencies, devDependencies } = require("./package.json");
 // todo: add to params
 const user = process.env.USER | "OnionKnight621";
 const repo = process.env.REPO | "repo-updater-test";
-const token = process.env.TOKEN | "TsdsgNvniKWiFtEyn32IA321"
+const token = process.env.TOKEN | "TsdsgNvniKWiFtEyn32IA321";
 
 const headers = {
   "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function goThrough(i, arr) {
       goThrough(i + 1, arr);
     });
   } else {
-    makeReq()
+    makeReq();
   }
 }
 
