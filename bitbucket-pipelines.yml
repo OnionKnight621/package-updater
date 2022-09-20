@@ -10,4 +10,34 @@ pipelines:
     - step:
         name: Update modules and install
         script:
-          - node ./script.js --updateAll
+            - node ./script.js --updateAll
+    - step:
+        name: create PR
+        script:
+            - apt-get update
+            - apt-get -y install curl jq
+            - >
+              export BB_TOKEN=$(curl -s -S -f -X POST -u "${BB_AUTH_STRING}" \
+                https://bitbucket.org/site/oauth2/access_token \
+                -d grant_type=client_credentials -d scopes="repository" | jq --raw-output '.access_token')
+            - >
+               export DEFAULT_REVIEWERS=$(curl https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/default-reviewers \ -s -S -f -X GET \ -H "Authorization: Bearer ${BB_TOKEN}" | jq '.values' | jq 'map({uuid})' )
+            - echo $DEFAULT_REVIEWERS
+            - >
+              export COMMITS=$(curl -H "Authorization: Bearer ${BB_TOKEN}" -d "include=develop" -d "exclude=master" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/commits")
+            - echo $COMMITS
+            - export COMMIT_MESSAGES=""
+            - export value=""
+            - >
+              for i in $(jq '.values | keys | .[]' <<< "$COMMITS"); do
+                value=$(jq -r ".values[$i]" <<< ${COMMITS})
+                message=$(jq -r '.message' <<< "$value")
+            - if [[ "$message" != *"Merge"* ]]; then
+              COMMIT_MESSAGES="$COMMIT_MESSAGES> "$message"\n\n"
+            - fi
+              done
+            - echo $COMMIT_MESSAGES
+            - npm i -g gulp
+            - gulp –tasks
+            - gulp createpr --t $BB_TOKEN --b "develop" --o $BITBUCKET_REPO_OWNER --s $BITBUCKET_REPO_SLUG --d "$COMMIT_MESSAGES" –r $DEFAULT_REVIEWERS
+

@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "update": "node ./script.js",
+    "update:all": "node ./script.js --updateAll",
+    "git:commit": "git commit -m \"add dist\"",
+    "deploy": "npm run update:all && npm run git:commit"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +16,9 @@
     "lodash": "^4.17.20",
     "mongoose": "^6.6.0",
     "rect": "^1.2.0"
+  },
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "gulp": "^4.0.2"
   }
 }

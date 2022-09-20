@@ -5,7 +5,8 @@ function goThrough(i, arr) {
   if (i < arr.length) {
     console.log(`Processing ${arr[i]}`);
     execute(`npm i ${arr[i]}`, (res) => {
-      console.log("executed ", res);
+      // todo: error handling
+      console.log(res);
 
       goThrough(i + 1, arr);
     });
