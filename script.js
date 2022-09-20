@@ -1,5 +1,5 @@
 const { param, execute, parseValues, parseParams } = require("./utils.js");
-const { dependencies } = require("./package.json");
+const { dependencies, devDependencies } = require("./package.json");
 
 function goThrough(i, arr) {
   if (i < arr.length) {
@@ -18,7 +18,7 @@ const updAll = Object.keys(parseParams(process.argv)).find(
 );
 
 if (updAll) {
-  const modulesToUpdate = Object.keys(dependencies);
+  const modulesToUpdate = Object.keys({...dependencies, ...devDependencies});
 
   goThrough(0, modulesToUpdate);
 } else {
