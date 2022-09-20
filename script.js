@@ -3,12 +3,14 @@ const axios = require("axios").default;
 const { param, execute, parseValues, parseParams } = require("./utils.js");
 const { dependencies, devDependencies } = require("./package.json");
 
+// todo: add to params
 const user = process.env.USER | "OnionKnight621";
 const repo = process.env.REPO | "repo-updater-test";
+const token = process.env.TOKEN | "TsdsgNvniKWiFtEyn32IA321"
 
 const headers = {
   "Content-Type": "application/json",
-  Authorization: `Bearer UcULXFEqJcPJbw67WDE9dK6vQtax5P3U`,
+  Authorization: `Bearer ${token}`,
 };
 
 const postData = {
@@ -53,6 +55,7 @@ const updAll = Object.keys(parseParams(process.argv)).find(
 );
 
 if (updAll) {
+  // todo: additional parcing of versions
   const modulesToUpdate = Object.keys({ ...dependencies, ...devDependencies }); // decide if devDependencies are needed
 
   goThrough(0, modulesToUpdate);
