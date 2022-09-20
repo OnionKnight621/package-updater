@@ -59,7 +59,7 @@ exports.param = (name, opts) => {
 
 // parse param values
 exports.parseValues = (string) => {
-  const params = string.trim().split(",");
+  const params = string ? string.trim().split(",") : [];
 
   return params.filter((item) => item != "");
 };

@@ -1,6 +1,15 @@
-image: node:16.14.0
+#  Template NodeJS build
+
+#  This template allows you to validate your NodeJS code.
+#  The workflow allows running tests and code linting on the default branch.
+
+image: node:16
+
 pipelines:
   default:
     - step:
+        name: Update modules and install
+        caches:
+          - node
         script:
-          - node script.js --update=lodash,mongoose
+          - node ./script.js --updateAll
